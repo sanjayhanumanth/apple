@@ -2,6 +2,10 @@
   "name": "simple-app",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0"
   }
 }

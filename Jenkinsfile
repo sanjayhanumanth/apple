@@ -8,6 +8,24 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                echo 'Code already checked out by SCM'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'npm test -- --watchAll=false'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
@@ -23,18 +41,21 @@ pipeline {
             }
         }
 
-        stage('Run New Container') {
+        stage('Deploy Container') {
             steps {
                 sh '''
                 docker run -d -p 3000:3000 --name $CONTAINER_NAME $IMAGE_NAME
                 '''
             }
         }
+    }
 
-        stage('Verify') {
-            steps {
-                sh 'docker ps'
-            }
+    post {
+        success {
+            echo '✅ Deployment Successful!'
+        }
+        failure {
+            echo '❌ Build Failed due to Test Failure or Error!'
         }
     }
 }
