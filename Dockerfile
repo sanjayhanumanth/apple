@@ -1,16 +1,17 @@
-FROM node:20-alpine
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
-# Copy package.json first
 COPY package*.json ./
-
-# Install dependencies (none, but keeps structure correct)
 RUN npm install
 
-# Copy rest of code
 COPY . .
+RUN npm run build
 
-EXPOSE 3000
+FROM nginx:alpine
 
-CMD ["npm", "run", "dev"]
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
