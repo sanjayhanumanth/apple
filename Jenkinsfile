@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image (with Tests)') {
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
             }
@@ -46,10 +46,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Deployment Successful!'
+            echo '✅ Build & Deployment Successful!'
         }
         failure {
-            echo '❌ Build Failed (Test Failed or Build Error)'
+            echo '❌ Build Failed!'
         }
     }
 }
