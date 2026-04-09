@@ -14,19 +14,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'npm test -- --watchAll=false'
-            }
-        }
-
-        stage('Build Docker Image') {
+        stage('Build Docker Image (with Tests)') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
             }
@@ -48,6 +36,12 @@ pipeline {
                 '''
             }
         }
+
+        stage('Verify') {
+            steps {
+                sh 'docker ps'
+            }
+        }
     }
 
     post {
@@ -55,7 +49,7 @@ pipeline {
             echo '✅ Deployment Successful!'
         }
         failure {
-            echo '❌ Build Failed due to Test Failure or Error!'
+            echo '❌ Build Failed (Test Failed or Build Error)'
         }
     }
 }
