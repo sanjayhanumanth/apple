@@ -1,58 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Simple App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern App</title>
+
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #4facfe, #00f2fe);
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      color: #fff;
     }
 
-    .container {
-      background: white;
-      padding: 40px 60px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 40px;
+      width: 350px;
       text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.1);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
-      margin: 0;
-      color: #333;
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
     p {
-      color: #666;
-      margin-top: 10px;
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 25px;
     }
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
+    .btn {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
       border: none;
-      background: #4facfe;
+      padding: 12px 20px;
+      border-radius: 8px;
       color: white;
-      border-radius: 6px;
+      font-size: 15px;
       cursor: pointer;
-      font-size: 16px;
+      transition: all 0.3s ease;
     }
 
-    button:hover {
-      background: #007bff;
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59,130,246,0.4);
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .dot {
+      height: 8px;
+      width: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Hello from npm dev 🚀</h1>
-    <p>Your simple UI is running successfully</p>
-    <button onclick="alert('App is working!')">Click Me</button>
+  <div class="card">
+    <h1>🚀 App Running</h1>
+    <p>Your Docker + npm app is live successfully</p>
+
+    <button class="btn" onclick="checkStatus()">Check Status</button>
+
+    <div class="status">
+      <span class="dot"></span> Container Active
+    </div>
   </div>
+
+  <script>
+    function checkStatus() {
+      alert("Your application is running perfectly!");
+    }
+  </script>
 </body>
 </html>
